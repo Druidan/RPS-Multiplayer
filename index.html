@@ -1,0 +1,96 @@
+<!--This is my "Rock, Paper, Scissors Multiplayer" game for my unit 7 homework.-->
+<!DOCTYPE html>
+<html lang="en">
+
+<!--I'll form the head-->
+<head>
+    <meta charset="UTF-8" lang="en-us">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>RPSOnline - the Rock, Paper, Scissors Multiplayer Sensation!</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="normalize.css">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css" integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" type="text/css" href="rpsStyle.css">
+</head>
+<body class=".body-container">
+    <main class="whole-screen">
+        <!--Navbar-->
+        <nav class="navBar">
+            <a class="myName nav-link" href="https://druidan.github.io/index.html">Edward L. Cheever II</a>            
+                <div class="navItems">
+                    <a class="navObj nav-link" href="https://druidan.github.io/portfolio.html">Exit RPS Online</a>
+                </div>
+        </nav>
+        <section class="main-screen">
+            <header class="gameHead">
+                <aside class="winsDiv">
+                    <h2 class="win-lossTitle">Your Wins</h2>
+                    <h2 class="winsANDloses winsDisplay">#</h2>
+                </aside>
+                <div class="titleDiv">
+                        <h1 class="gameTitle">RPS Online</h1>
+                        <p class="gameSubTitle">The Rock, Paper, Scissors Multiplayer Sensation!</p>
+                </div>
+                <div class="win-loss-div buryIt">
+                    <h1 class="win-loss-anouncement">Results!</h1>
+                </div>
+                <aside class="lossesDiv">
+                        <h2 class="win-lossTitle">Your Loses</h2>
+                        <h2 class="winsANDloses lossesDisplay">#</h2>
+                </aside>
+            </header>
+            <section class="gameRow">
+                <div class="intro-screen">
+                    <h2 class="instructionTitle">How to Play</h2>
+                    <p class="instructionText">Put instruction here!</p>
+                    <form class="playForm">
+                        <input type="text" name="playername" placeholder="Enter Your Display Name!" class="playerNameInput">
+                        <input type="submit" value="Submit Name" class="uniBtn pNameBtn">
+                        <input type="submit" value="Let's Play!" class="uniBtn startPlayBtn">
+                    </form>
+                </div>
+                <div class="gameOn-screen">
+                    <div class="gameStatusRow">
+                        <h3 class="timeText">Countdown: <h3 class="timeLeft">#</h3></h3>
+                        <div class="opponentStatus">
+                            <h3 class="currentOp">No Opponent </h3>
+                            <h3 class="opStatus">is Currently Connected</h3>
+                        </div>
+                    </div>
+                    <div class="rpsButtonRow">
+                        <div class="rpsSelection" id="rock">
+                            <img src="/assets/images/rock.png" alt="A Rock">
+                            <h2 class="rpsSelTitle">Rock</h2>
+                        </div>
+                        <div class="rpsSelection" id="paper">
+                            <img src="/assets/images/paper.png" alt="A Piece of Paper">
+                            <h2 class="rpsSelTitle">Paper</h2>
+                        </div>
+                        <div class="rpsSelection" id="scissors">
+                            <img src="/assets/images/scissors.png" alt="A pair of scissors">
+                            <h2 class="rpsSelTitle">Scissors</h2>
+                        </div>
+                    </div>
+                </div>
+                <div class="end-screen">
+                    <h2 class="endTitle"></h2>
+                    <div class="endRow">
+                        <h3 class="pPlayAgainStatus">Ready for Another Round?</h3>
+                        <input type="submit" value="Play Again?" class="playAgainBtn">
+                        <h3 class="oPlayAgainStatus">Your Opponent Isn't Ready Yet</h3>
+                    </div>
+                </div>
+            </section>
+            <section class="chatRow">
+                <h2 class="chatTitle">RPS Online Chat</h2>
+                <div class="chatLog"></div>
+                <textarea class="chatBox" type="text" placeholder="What say you?" name="playerChat"></textarea>
+                <input type="submit" value="Say" class="uniBtn sayBtn">
+            </section>
+        </section>
+    </main>
+    <script src="https://www.gstatic.com/firebasejs/5.8.6/firebase.js"></script>
+    <script type="text/javascript" src="rpsJS.js"></script>
+</body>
+</html>

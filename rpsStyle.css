@@ -1,0 +1,262 @@
+/* */
+
+/* Utility CSS */
+
+    .buryIt{
+        display: none !important;
+    }
+
+/* Structure CSS*/
+
+    .body-container {
+        background: rgb(15, 15, 15);
+        color: whitesmoke;
+    }
+
+    .whole-screen {
+        display: flex;
+        flex-direction: column;
+        flex-wrap: nowrap;
+        justify-content: center;
+    }
+
+    .uniBtn{
+
+    }
+
+/* Navbar */
+
+    .navBar{
+        display: flex;
+        flex-direction: row;
+        flex-wrap: nowrap;
+        justify-content: space-between;
+        background: black;
+        max-width: 100%;
+        padding: .5rem 2rem;
+    }
+
+    .myName{
+        text-decoration: none;
+        font-size: 1.5rem;
+    }
+
+    .navItems{
+        display: flex;
+    }
+
+    .navObj{
+        text-decoration: none;
+        font-size: 1.5rem;
+    }
+
+    .nav-link{
+        text-align: center;
+    }
+    
+    .nav-link:link{
+        color: white;
+    }
+
+    .nav-link:visited{
+        color: rgb(198, 227, 253);
+    }
+
+    .nav-link:hover{
+        color: rgb(4, 253, 253);
+    }
+
+    .nav-link:active{
+        color: rgb(91, 91, 248);
+    }
+
+/* Main Content */
+
+    .main-screen{
+        display: flex;
+        flex-direction: column;
+        flex-wrap: nowrap;
+    }
+
+    /* Content Header*/
+        .gameHead{
+            display: flex;
+            flex-direction: row;
+            flex-wrap: nowrap;
+            justify-content: space-around;
+            text-align: center;
+        }
+
+        .titleDiv{
+            min-width: 20%;
+        }
+
+            .gameTitle{
+
+            }
+
+            .gameSubTitle{
+            }
+
+        .win-loss-div{
+            
+        }
+
+            .win-loss-anouncement{
+                
+            }
+
+        .winsANDlosses{
+
+        }
+
+        .winsDiv{
+            min-width: 20%;
+        }
+
+            .winsDisplay{
+
+            }
+
+        .lossesDiv{
+            min-width: 20%;
+        }
+
+        .lossesDisplay{
+                
+        }
+
+    /* Game-On Screen */
+    
+        .gameRow{
+
+        }
+
+        .intro-screen{
+            display: flex;
+            flex-direction: column;
+            flex-wrap: nowrap;
+            justify-content: space-around;
+
+        }
+
+            .instructionTitle{
+                text-align: center;
+            }
+
+            .instructionText{
+                text-align: center;
+            }
+
+            .playForm{
+                display: flex;
+                flex-direction: row;
+                flex-wrap: wrap;
+                justify-content: space-around;
+                padding: 0 2%;
+            }
+
+            .playerNameInput{
+                text-align: center;
+                left: 0;
+                right: 0;
+                min-width: 40%;
+            }
+
+            .pNameBtn{
+
+            }
+
+            .startPlayBtn{
+
+            }
+
+        .gameOn-screen{
+
+        }
+
+        .gameStatusRow{
+            display: flex;
+            flex-direction: row;
+            flex-wrap: nowrap;
+            justify-content: space-around;
+            padding: 0 2%;
+        }
+
+            .timeText{
+
+            }
+
+            .timeLeft{
+                margin-left: 2%;
+            }
+
+            .opponentStatus{
+                display: flex;
+                flex-direction: row;
+                flex-wrap: wrap;
+                justify-content: center;
+                text-align: center;
+            }
+
+            .currentOp{
+                margin: 2% 0 0 0;
+            }
+
+            .opStatus{
+                margin: 0 0 2% 0;
+            }
+
+        .end-screen{
+
+        }
+
+    /* Topic Adding Zone*/
+    .topicAdd{
+        display: flex;
+        flex-direction: column;
+        flex-wrap: wrap;
+        padding: 0 1rem 0 0;
+        min-width: 290px;
+        margin: 1rem auto;
+    }
+
+    #topicAddField{
+        margin-left: 1rem;
+    }
+
+    .favZone{
+        display: flex;
+        flex-direction: column;
+        flex-wrap: nowrap;
+        justify-items: space-around;
+    }
+    
+    .addForm{
+        display: flex;
+        flex-direction: column;
+        flex-wrap: nowrap;
+        justify-content: space-around;
+        align-content: center;
+    }
+
+    .addTitle{
+        text-align: center;
+    }
+
+    .addTopicBtn{
+        display: flex;
+        width: 150px;
+        justify-content: space-around;
+        background-color: transparent;
+        color: whitesmoke;
+        border: 2px solid teal;
+        border-radius: 10px;
+        margin: 1rem auto;
+    }
+
+    .addTopicBtn:hover{
+        outline: none;
+        border-color: #9ecaed;
+        box-shadow: 0 0 10px #9ecaed;
+    }
