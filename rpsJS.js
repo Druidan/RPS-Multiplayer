@@ -25,9 +25,9 @@ firebase.initializeApp(config);
 
 //Global Variables
 userArray = [];
-totalPlayers = 0;
-let player1Name = $(".player1");
-let player2Name = $(".player2");
+let totalPlayers = 0;
+const player1Name = $(".player1");
+const player2Name = $(".player2");
 intervalId = 0;
 
 //Game Objects
@@ -62,6 +62,7 @@ gameFunctions = {
                     loses: 0,
                     playerPick: "",
                     nameAdded: false,
+                    firstEntry: false,
                     playerReady: false,
                     playerChoiceMade: false,
                     hasOpponent: false,
@@ -75,19 +76,16 @@ gameFunctions = {
             snap = (snapshot.val());
         });
         allUsers.on("child_changed", function(snapshot) {
-            player = snapshot.val();
-            if(player.nameAdded === false){
-                if(totalPlayers === 0) {
-                    player1Name.text(player.name);
-                    totalPlayers = 1;
-                }
+            if(totalPlayers === 0) {
+                player = snapshot.val();
+                player1Name.text(player.name);
+                totalPlayers++;
             } else {
                 opponent = snapshot.val();
-                if(opponent.nameAdded === false){
-                    if(spotsFilled === 1){
+                if(totalPlayers === 1 && snapshot.val().firstEntry === false){
                         player2Name.text(opponent.name);
-                        totalPlayers = 2;
-                    }
+                        totalPlayers++;
+                        //Start Game
                 }
             }
         });
@@ -98,6 +96,7 @@ gameFunctions = {
             allUsers.child(playerKey).update({
                 name: name,
                 nameAdded: true,
+                firstEntry: true,
             });
         } else if (gameOn && totalPlayers === 1) {
             name = $(".playerNameInput").val().trim();
