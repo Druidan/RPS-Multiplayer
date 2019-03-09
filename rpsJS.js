@@ -20,10 +20,14 @@ firebase.initializeApp(config);
     const database = firebase.database();
     const dataRef = database.ref();
     const allUsers = database.ref("/allUsers");
+    let playerKey;
     const connectedRef = database.ref(".info/connected");
 
 //Global Variables
+userArray = [];
 totalPlayers = 0;
+let player1Name = $(".player1");
+let player2Name = $(".player2");
 intervalId = 0;
 
 //Game Objects
@@ -38,13 +42,6 @@ gameObjects = {
         opponentChoiceMade: false,
         clockRunning: false,
     },
-    playerData : {
-        name: "",
-        id: "",
-        wins: 0,
-        loses: 0,
-        playerPick: "",
-    },
     opponentData : {
         name: "",
         id: "",
@@ -56,35 +53,59 @@ gameObjects = {
 
 //Game Functions
 gameFunctions = {
-    userConnect: function(){
-        const displayName = gameObjects.playerData.name
-        const newUser = database.ref('/allUsers');
+    firebaseListeners: function() {
         connectedRef.on("value", function(conSnap){
             if (conSnap.val()){
-                const connected = newUser.push({
-                    name: displayName,
-                    id: "",
+                const connected = allUsers.push({
+                    name: "",
                     wins: 0,
                     loses: 0,
                     playerPick: "",
-                })
-                playerKey = connected.key;
-                const newUserId = database.ref('/allUsers'+playerKey);
-                connectedRef.on("value", function(conSnap){
-                    if (conSnap.val()){
-                        newUserId.push({
-                            id: playerKey,
-                        })
-                    };
+                    nameAdded: false,
+                    playerReady: false,
+                    playerChoiceMade: false,
+                    hasOpponent: false,
+                    opponentId: "",
+                });
                 connected.onDisconnect().remove();
-                })
+                playerKey = connected.key;
+            };
+        });
+        dataRef.on('value', snapshot => {
+            snap = (snapshot.val());
+        });
+        allUsers.on("child_changed", function(snapshot) {
+            player = snapshot.val();
+            if(player.nameAdded === false){
+                if(totalPlayers === 0) {
+                    player1Name.text(player.name);
+                    totalPlayers = 1;
+                }
+            } else {
+                opponent = snapshot.val();
+                if(opponent.nameAdded === false){
+                    if(spotsFilled === 1){
+                        player2Name.text(opponent.name);
+                        totalPlayers = 2;
+                    }
+                }
             }
-        })
+        });
     },
-    uploadPlayerData : function(){
-        displayName = gameObjects.playerData.name
-        playerKey = gameObjects.playerData.id
-        database.ref('/allUsers/'+playerKey).push(displayName);
+    userConnect: function(){
+        if(gameOn && totalPlayers === 0) {
+            name = $(".playerNameInput").val().trim();
+            allUsers.child(playerKey).update({
+                name: name,
+                nameAdded: true,
+            });
+        } else if (gameOn && totalPlayers === 1) {
+            name = $(".playerNameInput").val().trim();
+            allUsers.child(playerKey).update({
+                name: name,
+                nameAdded: true,
+            });
+        }
     },
 };
 
@@ -107,11 +128,12 @@ function sound(src) { //This makes the sound objects that are used when cards ar
 //Click Events
 $(".pNameBtn").click( function(event){ //When the player clicks the button to submit their display-name.
     event.preventDefault();
-    gameObjects.playerData.name = $(".playerNameInput").val().trim();
+
 });
 
 $(".startPlayBtn").click( function(event){//When the Player hits the start screen polay button.
     event.preventDefault();
+    gameOn = true;
     gameFunctions.userConnect();
 });
 
@@ -130,16 +152,9 @@ $(".sayBtn").click( function(event){//When the Player submits text to the chat.
 
 });
 
-//Database Listeners
-dataRef.on('value', snapshot => {
-    snap = (snapshot.val());
-    console.log(snap);
-});
-allUsers.on("child_added", function(userSnap){
-    player = userSnap.val();
-    gameObjects.playerData.id = userSnap.key; 
-    console.log(player);
-});
+//Call database Listeners
+gameFunctions.firebaseListeners();
+
 
 
 

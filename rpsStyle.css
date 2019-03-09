@@ -177,14 +177,17 @@
 
         .gameStatusRow{
             display: flex;
-            flex-direction: row;
+            flex-direction: column;
             flex-wrap: nowrap;
             justify-content: space-around;
             padding: 0 2%;
         }
 
-            .timeText{
-
+            .timeLine{
+                display: flex;
+                flex-direction: row;
+                flex-wrap: nowrap;
+                justify-content: center;
             }
 
             .timeLeft{
@@ -197,14 +200,15 @@
                 flex-wrap: wrap;
                 justify-content: center;
                 text-align: center;
+                align-items: center;
             }
 
-            .currentOp{
-                margin: 2% 0 0 0;
+            .players{
+
             }
 
-            .opStatus{
-                margin: 0 0 2% 0;
+            .vs{
+                margin: 0 10%;
             }
 
         .rpsButtonRow{
