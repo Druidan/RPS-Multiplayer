@@ -64,30 +64,57 @@ gameFunctions = {
                                 if(myTicker.userTicker === 0){ //If the number of users in the Firebase is 0 on arrival...
                                     allGameRooms.remove(); //Remove any game rooms that remain from previous sessions.
                                     allUsers.remove(); //If any user data remain despite being disconnected. remove it.
-                                    createFromScratchP1() //Calls all a catch-all function that generates the game room and player data for player 1.      
+                                    createFromScratchP1(); //Calls all a catch-all function that generates the game room and player data for player 1.      
                                 }
                             })
-                            currentEmptyRoom.once("value", function(emptySnap){
-                                checkEmptyRoom = emptySnap.val()
-                                console.log(emptyRoomId);
-                                emptyRoom = allGameRooms.child(checkEmptyRoom)
-                                if(roomSnap.val() && emptyRoom.player2Id === ""){ //If there are Rooms but there is an empty room...
-                                    gameFunctions.createGameRoom();
-                                    gameFunctions.createNewPlayer();
-                                    allUsers.child(playerKey).update({
-                                        gameRoomId: myGameRoom,
-                                        player2Id: playerKey,
-                                        playerNumber: 2,
-                                    })
-                                    allGameRooms.child(myGameRoom).update({
-                                        player2Id: playerKey,
-                                    })
-                                } else{
-                                    if(roomSnap.val()){ //If there are Rooms but there are no empty rooms...
-
+                            playerAssigned = false;
+                            const roomsByKey = allGameRooms.orderByKey();
+                            roomsByKey.once("value", function(snapshot){
+                                snapshot.forEach(function(childSnap){
+                                    let childProps = childSnap.val();
+                                    if (childProps.player2Id === ""){
+                                        gameFunctions.createNewPlayer();
+                                        targetGameRoom = childProps.gameRoomId
+                                        targetOpponent = targetGameRoom.player1Id
+                                        console.log(targetGameRoom.player1Id)
+                                        allUsers.child(playerKey).update({
+                                            gameRoomId: targetGameRoom,
+                                            player2Id: playerKey,
+                                            playerNumber: 2,
+                                            opponentId: targetOpponent,
+                                        })
+                                        allUsers.child(targetOpponent).update({
+                                            opponentId: playerKey,
+                                        })
+                                        allGameRooms.child(targetGameRoom).update({
+                                            player2Id: playerKey,
+                                        })
+                                        playerAssigned = true;
                                     }
-                                }
+                                }) 
                             })
+                            // .then(function(snapshot){
+                            //     console.log(snapshot.val())
+                                allRoomsFilled();
+                            // })
+                            function allRoomsFilled(){
+                                if(playerAssigned === false) {
+                                    createFromScratchP1();
+                                }
+                            };
+
+                            // currentEmptyRoom.once("value", function(emptySnap){
+                            //     checkEmptyRoom = emptySnap.val()
+                            //     console.log(emptyRoomId);
+                            //     emptyRoom = allGameRooms.child(checkEmptyRoom)
+                            //     if(roomSnap.val() && emptyRoom.player2Id === ""){ //If there are Rooms but there is an empty room...
+                                    
+                            //     } else{
+                            //         if(roomSnap.val()){ //If there are Rooms but there are no empty rooms...
+
+                            //         }
+                            //     }
+                            // })
                         }
                     }
                 allUsers.once("value", function(captureUserCount){
