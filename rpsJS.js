@@ -53,36 +53,18 @@ gameFunctions = {
                 allGameRooms.once("value", function(roomSnap){ //grab a snapshot of the data the the all Game Rooms Directory.
                     const allRooms = roomSnap.val()
                     if(!roomSnap.exists()){ //If there are no game rooms the following happens:
-                        gameFunctions.createGameRoom(); //Call the function that creates a game room.
-                        gameFunctions.createNewPlayer(); //Call the function that creates a new player.
-                        allUsers.child(playerKey).update({ //Once both the new room and player are created, connect the player to the new game room, by updating their data for their game room Id, their own player Id, and their player number.
-                            gameRoomId: myGameRoom,
-                            player1Id: playerKey,
-                            playerNumber: 1,
-                        })
-                        allGameRooms.child(myGameRoom).update({ //Also update the game room with player Id data, further connecting the two.
-                            player1Id: playerKey,
-                        })
+                        createFromScratchP1() //Calls all a catch-all function that generates the game room and player data for player 1.
                     } else {
                         if(roomSnap){ //However, if there are Rooms...
                             //First we need to make sure the room(s) in here are not left over from a previous session.
-                            userNum.once("value", function(userSnap2){ //
-                                let userSnap = userSnap2.val();
-                                myTicker = userSnap[0];
-                                if(myTicker.userTicker === 0){
-                                    allGameRooms.remove();
-                                    allUsers.remove();
-                                    gameFunctions.createGameRoom();
-                                    gameFunctions.createNewPlayer();
-                                    allUsers.child(playerKey).update({
-                                        gameRoomId: myGameRoom,
-                                        player1Id: playerKey,
-                                        playerNumber: 1,
-                                    })
-                                    allGameRooms.child(myGameRoom).update({
-                                        player1Id: playerKey,
-                                    })
-                                    gameFunctions.closeEmptyRooms();            
+                            userNum.once("value", function(userSnap2){ //Take a snapshot of the user counter.
+                                let userSnap = userSnap2.val(); // Establish the variable targetting the snapshot's value.
+                                myTicker = userSnap[0]; //Further focus the targetting variable.
+                                console.log(userSnap);
+                                if(myTicker.userTicker === 0){ //If the number of users in the Firebase is 0 on arrival...
+                                    allGameRooms.remove(); //Remove any game rooms that remain from previous sessions.
+                                    allUsers.remove(); //If any user data remain despite being disconnected. remove it.
+                                    createFromScratchP1() //Calls all a catch-all function that generates the game room and player data for player 1.      
                                 }
                             })
                             currentEmptyRoom.once("value", function(emptySnap){
@@ -109,10 +91,10 @@ gameFunctions = {
                         }
                     }
                 allUsers.once("value", function(captureUserCount){
-                    userTicker = captureUserCount.numChildren()
-                    if(userNum.child(userTicker)){
+                    users = captureUserCount.numChildren()
+                    if(deepUserNum.child(users)){
                         userNum.child(0).update({ 
-                        userTicker: userTicker
+                        userTicker: users
                         })
                     } else {
                         userNum.child(userTicker).set({ 
@@ -122,6 +104,18 @@ gameFunctions = {
                 });
                 })
             };
+            function createFromScratchP1(){
+                gameFunctions.createGameRoom(); //Call the function that creates a game room.
+                gameFunctions.createNewPlayer(); //Call the function that creates a new player.
+                allUsers.child(playerKey).update({ //Once both the new room and player are created, connect the player to the new game room, by updating their data for their game room Id, their own player Id, and their player number.
+                    gameRoomId: myGameRoom,
+                    player1Id: playerKey,
+                    playerNumber: 1,
+                })
+                allGameRooms.child(myGameRoom).update({ //Also update the game room with player Id data, further connecting the two.
+                    player1Id: playerKey,
+                })
+            }
         }, function(errorObject) {
             console.log("The read failed: " + errorObject.code);
         });
