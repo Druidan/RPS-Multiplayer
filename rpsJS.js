@@ -20,60 +20,130 @@ firebase.initializeApp(config);
     const database = firebase.database();
     const dataRef = database.ref();
     const allUsers = database.ref("/allUsers");
+    const allGameRooms = database.ref("/allGameRooms");
+    const currentEmptyRoom = database.ref("/currentEmptyRoom");
+    const emptyRoomId = database.ref("/currentEmptyRoom/emptyRoomId");
+    let userNum = database.ref("/userNum");
+    let deepUserNum = database.ref("/userNum/0");
+    let userTicker = 0;
+    let thisPlayer;
     let playerKey;
+    let myGameRoom;
+    let emptyRoom;
     const connectedRef = database.ref(".info/connected");
 
 //Global Variables
-userArray = [];
 let totalPlayers = 0;
 const player1Name = $(".player1");
 const player2Name = $(".player2");
 intervalId = 0;
 
-//Game Objects
-gameObjects = {
-    gameStates : {
-        startScreen: true,
-        gameOn: false,
-        playerReady: false,
-        opponentReady: false,
-        gameOver: false,
-        playerChoiceMade: false,
-        opponentChoiceMade: false,
-        clockRunning: false,
-    },
-    opponentData : {
-        name: "",
-        id: "",
-        opponentPick: "",
-    },
-};
-
-
 
 //Game Functions
 gameFunctions = {
     firebaseListeners: function() {
-        connectedRef.on("value", function(conSnap){
-            if (conSnap.val()){
-                const connected = allUsers.push({
-                    name: "",
-                    wins: 0,
-                    loses: 0,
-                    playerPick: "",
-                    nameAdded: false,
-                    firstEntry: false,
-                    playerReady: false,
-                    playerChoiceMade: false,
-                    hasOpponent: false,
-                    opponentId: "",
+        connectedRef.on("value", function(conSnap){ //Listener to see when a user is connected.
+            // if(currentEmptyRoom == null){
+            //     currentEmptyRoom.remove()
+            //     currentEmptyRoom.child(emptyRoom).set({
+            //         emptyRoomId: ""
+            //     })
+            // }
+            if (conSnap.val()){ //If the user is connected...
+                allGameRooms.once("value", function(roomSnap){ //grab a snapshot of the data the the all Game Rooms Directory.
+                    const allRooms = roomSnap.val()
+                    if(!roomSnap.exists()){ //If there are no game rooms the following happens:
+                        gameFunctions.createGameRoom(); //Call the function that creates a game room.
+                        gameFunctions.createNewPlayer(); //Call the function that creates a new player.
+                        allUsers.child(playerKey).update({ //Once both the new room and player are created, connect the player to the new game room, by updating their data for their game room Id, their own player Id, and their player number.
+                            gameRoomId: myGameRoom,
+                            player1Id: playerKey,
+                            playerNumber: 1,
+                        })
+                        allGameRooms.child(myGameRoom).update({ //Also update the game room with player Id data, further connecting the two.
+                            player1Id: playerKey,
+                        })
+                    } else {
+                        if(roomSnap){ //However, if there are Rooms...
+                            //First we need to make sure the room(s) in here are not left over from a previous session.
+                            userNum.once("value", function(userSnap2){ //
+                                let userSnap = userSnap2.val();
+                                myTicker = userSnap[0];
+                                if(myTicker.userTicker === 0){
+                                    allGameRooms.remove();
+                                    allUsers.remove();
+                                    gameFunctions.createGameRoom();
+                                    gameFunctions.createNewPlayer();
+                                    allUsers.child(playerKey).update({
+                                        gameRoomId: myGameRoom,
+                                        player1Id: playerKey,
+                                        playerNumber: 1,
+                                    })
+                                    allGameRooms.child(myGameRoom).update({
+                                        player1Id: playerKey,
+                                    })
+                                    gameFunctions.closeEmptyRooms();            
+                                }
+                            })
+                            currentEmptyRoom.once("value", function(emptySnap){
+                                checkEmptyRoom = emptySnap.val()
+                                console.log(emptyRoomId);
+                                emptyRoom = allGameRooms.child(checkEmptyRoom)
+                                if(roomSnap.val() && emptyRoom.player2Id === ""){ //If there are Rooms but there is an empty room...
+                                    gameFunctions.createGameRoom();
+                                    gameFunctions.createNewPlayer();
+                                    allUsers.child(playerKey).update({
+                                        gameRoomId: myGameRoom,
+                                        player2Id: playerKey,
+                                        playerNumber: 2,
+                                    })
+                                    allGameRooms.child(myGameRoom).update({
+                                        player2Id: playerKey,
+                                    })
+                                } else{
+                                    if(roomSnap.val()){ //If there are Rooms but there are no empty rooms...
+
+                                    }
+                                }
+                            })
+                        }
+                    }
+                allUsers.once("value", function(captureUserCount){
+                    userTicker = captureUserCount.numChildren()
+                    if(userNum.child(userTicker)){
+                        userNum.child(0).update({ 
+                        userTicker: userTicker
+                        })
+                    } else {
+                        userNum.child(userTicker).set({ 
+                            userTicker: 1
+                            })
+                    }
                 });
-                connected.onDisconnect().remove();
-                playerKey = connected.key;
+                })
             };
+        }, function(errorObject) {
+            console.log("The read failed: " + errorObject.code);
         });
-        dataRef.on('value', snapshot => {
-            snap = (snapshot.val());
+        allUsers.on("child_removed", function(disconnectedSnap){
+            disconnected = disconnectedSnap.val()
+            if (disconnected.playerNumber === 1){
+                thisRoom = disconnected.gameRoomId;
+                console.log(thisRoom);
+                allGameRooms.child(thisRoom).update({
+                    player1Id: "",
+                });
+                console.log(allGameRooms.child(thisRoom));
+            } else{
+                if (disconnected.playerNumber === 2){
+                    allGameRooms.child(disconnected.gameRoomId).update({
+                        player2Id: "",
+                    })
+                }
+            }
+            gameFunctions.closeEmptyRooms();
+        }, function(errorObject) {
+            console.log("The read failed: " + errorObject.code);
         });
         allUsers.on("child_changed", function(snapshot) {
             if(totalPlayers === 0) {
@@ -88,6 +158,8 @@ gameFunctions = {
                         //Start Game
                 }
             }
+        }, function(errorObject) {
+            console.log("The read failed: " + errorObject.code);
         });
     },
     userConnect: function(){
@@ -106,6 +178,84 @@ gameFunctions = {
             });
         }
     },
+    createGameRoom: function(){ // This function creates a new game room.
+        makeRoom = allGameRooms.push({ //Create a push that sends all game state data for this game room to Firebase.
+            gameRoomId: "",
+            startScreen: true,
+            gameOn: false,
+            playerReady: false,
+            opponentReady: false,
+            gameOver: false,
+            player1Id: "",
+            player1Choice: "",
+            player1Chose: false,
+            player2Id: "",
+            player2Choice: "",
+            player2Chose: false,
+            clockRunning: false,
+        })
+        myGameRoom = makeRoom.key; //Grab the unique key of the game room's push.
+        pushRoomId(); //Call the function that will now use the key that was just grabbed.
+        function pushRoomId(){
+            allGameRooms.child(myGameRoom).update({ // Target the game room we just created and then update its gameRoom Id property with its key.
+                gameRoomId: myGameRoom, 
+            })
+            currentEmptyRoom.set({ //If there are no old Empty Room Ids, establish the empty key.
+                emptyRoomId: "",
+            })
+            currentEmptyRoom.update({ //Update the key with the current room. 
+                emptyRoomId: myGameRoom,
+            })
+        }
+    },
+    kickPlayer: function(){
+        if(allUsers.child(playerKey).playerNumber === 1){
+            allGameRooms.child(myGameRoom).update({
+                player1Id: "",
+            })
+        } else{
+            if (allUsers.child(playerKey).playerNumber === 2){
+                allGameRooms.child(myGameRoom).update({
+                    player2Id: "",
+                })
+            } 
+        }
+    },
+    createNewPlayer: function(){ //This function creates a new player.
+        thisPlayer = allUsers.push({ //create and capture a push to Firebase with the new player data.
+            name: "",
+            wins: 0,
+            loses: 0,
+            playerPick: "",
+            playerNumber: 0,
+            nameAdded: false,
+            connected: true,
+            firstEntry: false,
+            playerReady: false,
+            playerChoiceMade: false,
+            hasOpponent: false,
+            opponentId: "",
+            gameRoomId: "",
+        });
+        thisPlayer.onDisconnect().remove(); //If this player disconnects, remove them from Firebase.
+        playerKey = thisPlayer.key; //Grab the key of the push we just made.
+        userTicker++ //Increment the User Ticker
+        deepUserNum.update({ //Send the new value up to the Firebase user counter.
+            userTicker: userTicker
+        })
+    },
+    closeEmptyRooms: function(){
+        const allRooms = allGameRooms.orderByKey();
+        allRooms.once("value")
+        .then(function(snapshot){
+            snapshot.forEach(function(childSnap){
+                let childProps = childSnap.val();
+                if (childProps.player1Id === "" && childProps.player2Id === ""){
+                    allGameRooms.child(childProps.gameRoomId).remove();
+                }
+            })             
+        })
+    }
 };
 
 //Constructors and Prototypes 
