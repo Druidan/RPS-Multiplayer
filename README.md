@@ -38,9 +38,9 @@ This is the Unit 7 Homework Project, an online multiplayer Rock Paper Scissors g
 
   - [ ] 1. When the Submit Button is clicked...:
 
-    - [ ] We check the All Players database reference to see if any other player already has that username.
+    - [X] We check the All Players database reference to see if any other player already has that username.
       - [ ] If another player already has that username, we notify the user and prompt them to select a new username.
-      - [ ] If no other player has that username, a local variable meant to hold this player's name is updated with this player's submitted name. 
+      - [X] If no other player has that username, a local variable meant to hold this player's name is updated with this player's submitted name. 
 
       - [ ] We check to see if there are game rooms in the game rooms directory of Firebase.
         - [ ] If there are game rooms, We check to see if an existing room is missing a player 1.
