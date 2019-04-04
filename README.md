@@ -30,13 +30,12 @@ This is the Unit 7 Homework Project, an online multiplayer Rock Paper Scissors g
     - [X] A variable that will hold this user's game room directory (which combines the directory string with the local variable created below that holds the room id.).
     <!-- - [ ] A variable that will hold this user's opponent's directory. -->
     - [X] A variable that refers directly to the connected reference.
+
   - [ ] Firebase Listeners are Established:
     - [X] Establish a Listener to see that the user is connected to Firebase.
     - [X] Establish a Listener for when this user's game room's "roomFull" key changes value.
     
-  - [ ] The user is presented with a sign-in pop-up that includes an input field and a submit button. Nothing else can be interacted with until sign-in is completed.
-
-  - [ ] 1. When the Submit Button is clicked...:
+  - [ ] The user is presented with a sign-in pop-up that includes an input field and a submit button. Nothing else can be interacted with until sign-in is completed. When the Submit Button is clicked...:
 
     - [X] We check the All Players database reference to see if any other player already has that username.
       - [ ] If another player already has that username, we notify the user and prompt them to select a new username.
