@@ -21,8 +21,8 @@ firebase.initializeApp(config);
     let myDir = `/allUsers/${playerKey}`; //Establish a variable that holds this player's direct directory path on Firebase.
     const myDirRef = database.ref(myDir); // This variable can be used to directly reference this player's directory.
     let myRoomKey; //Establish a variable that hold this player's game room's push key.
-    const myRoom = `/allGameRooms/${myRoomKey}`; // Establish a variable that hold this player's room's direct directory path on Firebase.
-    const myRoomRef = database.ref(myRoom);  // This variable can be used to directly reference this player's room's directory.
+    let myRoom = database.ref(`allGameRooms/${myRoomKey}`); // Establish a variable that hold this player's room's direct directory path on Firebase.
+    let roomFullRef = database.ref('/allGameRooms/' + myRoomKey);// + '/roomFull'
     const connectedRef = database.ref(`.info/connected`); //This Variable refers directly to the information reference that tells us if we are connected or not.
 
 //If no directories exist, create directories.
@@ -49,7 +49,6 @@ let thisPlayerNumber;
 // const player2Name = $(`.player2`);
 // intervalId = 0;
 
-
 //Game Functions
 gameFunctions = {
     firebaseListeners: function() {
@@ -62,49 +61,40 @@ gameFunctions = {
         });
         // -----------------------------------
 
-        myRoomRef.ref(`.roomFull`).on(`value`, function(roomFullSnap){ 
-            console.log(`Checking If the Room is Full!`);
-            if(roomFullSnap.val()){
-                console.log(`The Room is full!`)
-            } else {
-                console.log(`The Room isn't full!`)
-            }
-        }, function(errorObject) {
-            console.log(`The read failed: ${errorObject.code}`);
-        });
+        
         // -----------------------------------
 
-        myRoomRef.ref(`.readyCheck`).on(`value`, function(readyCheckSnap){ 
-            if(readyCheckSnap.val()){
+        // myRoomRef.ref(`.readyCheck`).on(`value`, function(readyCheckSnap){ 
+        //     if(readyCheckSnap.val()){
 
-            } else {
+        //     } else {
 
-            }
-        }, function(errorObject) {
-            console.log(`The read failed: ${errorObject.code}`);
-        });
-        // -----------------------------------
+        //     }
+        // }, function(errorObject) {
+        //     console.log(`The read failed: ${errorObject.code}`);
+        // });
+        // // -----------------------------------
 
-        myRoomRef.ref(`.gameOn`).on(`value`, function(gameOnSnap){ 
-            if(gameOnSnap.val()){
+        // myRoomRef.ref(`.gameOn`).on(`value`, function(gameOnSnap){ 
+        //     if(gameOnSnap.val()){
 
-            } else {
+        //     } else {
 
-            }
-        }, function(errorObject) {
-            console.log(`The read failed: ${errorObject.code}`);
-        });
-        // -----------------------------------
+        //     }
+        // }, function(errorObject) {
+        //     console.log(`The read failed: ${errorObject.code}`);
+        // });
+        // // -----------------------------------
 
-        myRoomRef.ref(`.endScreen`).on(`value`, function(endScreenSnap){ 
-            if(endScreenSnap.val()){
+        // myRoomRef.ref(`.endScreen`).on(`value`, function(endScreenSnap){ 
+        //     if(endScreenSnap.val()){
 
-            } else {
+        //     } else {
 
-            }
-        }, function(errorObject) {
-            console.log(`The read failed: ${errorObject.code}`);
-        });
+        //     }
+        // }, function(errorObject) {
+        //     console.log(`The read failed: ${errorObject.code}`);
+        // });
         // -----------------------------------
 
 
@@ -187,28 +177,51 @@ gameFunctions = {
             allGameRooms.child(myRoomKey).update({
                 player1Id: playerKey,
             });
-            if(!myRoomRef.player2Id === ``){
-                allGameRooms.child(myRoomKey).update({
-                    roomFull: true,
-                });
-            };
+            allGameRooms.child(myRoomKey).once(`value`).then(function(snapshot){
+                const gR = snapshot.val();
+                console.log(gR)
+                if(gR.player2Id !== ``){
+                    allGameRooms.child(myRoomKey).update({
+                        roomFull: true,
+                    });
+                };
+            })
             allGameRooms.child(myRoomKey).onDisconnect().update({
-                player1Id: ``
+                roomFull: false,
+                player1Id: ``,
             });
         } else if(thisPlayerNumber === 2){
             allGameRooms.child(myRoomKey).update({
                 player2Id: playerKey,
+            });
+            allGameRooms.child(myRoomKey).once(`value`).then(function(snapshot){
+                const gR = snapshot.val();
+                if(gR.player1Id !== ``){
+                    allGameRooms.child(myRoomKey).update({
+                        roomFull: true,
+                    });
+                };
             })
-            if(!myRoomRef.player1Id === ``){
-                allGameRooms.child(myRoomKey).update({
-                    roomFull: true,
-                })
-            }
             allGameRooms.child(myRoomKey).onDisconnect().update({
-                player2Id: ``
+                roomFull: false,
+                player2Id: ``,
             });
         };
         thisPlayer.onDisconnect().remove(); //If this player disconnects, remove them from Firebase.
+
+        myRoom.on(`value`, function(roomFullSnap){ 
+            console.log(roomFullSnap.val())
+            console.log(`Checking If the Room is Full!`);
+            if(roomFullSnap.val()){
+                console.log(`The Room is full!`)
+            } else {
+                console.log(`The Room isn't full!`)
+            }
+        }, function(errorObject) {
+            console.log(`The read failed: ${errorObject.code}`);
+        });
+
+
     },
     closeEmptyRooms: function(){
         allGameRooms.once(`value`).then(function(snapshot) {
@@ -303,14 +316,12 @@ $(`.pNameBtn`).click( function(event){ //When the player clicks the button to su
                             gameFunctions.createNewPlayer();
                             playerAssigned = true;
                         } else {
-                            console.log(`there is no player 1`)
                             if(r.player2Id === ``){
                                 myRoomKey = r.gameRoomId;
                                 thisPlayerNumber = 2;
                                 gameFunctions.createNewPlayer();
                                 playerAssigned = true;
                             } else {
-                                console.log(`there is no player 2`)
                                 newRoom = true;
                                 if(j === snapshot.numChildren()){
                                     console.log(j)
@@ -324,12 +335,10 @@ $(`.pNameBtn`).click( function(event){ //When the player clicks the button to su
                 })
             }
         } else {
-            console.log(`I'm Triggered`)
             newRoom = true;
             checkForNewRoom();
         }
         function checkForNewRoom(){
-            console.log(`4`)
             if(newRoom) {
                 gameFunctions.createGameRoom();
                 thisPlayerNumber = 1;

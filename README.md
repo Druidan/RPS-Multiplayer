@@ -89,10 +89,8 @@ This is the Unit 7 Homework Project, an online multiplayer Rock Paper Scissors g
           <!-- - [ ] If there is no player 2, set this game room's "roomFull" key to false. -->
 
 
-  - [ ] If a player disconnects, upon disconnecting... (remember that everything in this function lives only on the firebase database, and if I need to do something, it Hass to use the information that is stored there. If that information is not stored there, then I probably need to store it there.)
-    - [ ] create a reference to this players room using the game room ID in their profile information.
+  - [ ] If a player disconnects, add an onDisconect effect to the room so that, upon disconnecting... (remember that everything in this function lives only on the firebase database, and if I need to do something, it Hass to use the information that is stored there. If that information is not stored there, then I probably need to store it there.)
     - [ ] set this user's game room's player id (either 1 or 2, depending on this player's id), to an empty string. (remove any additional player specific info).
-    - [ ] If both this user's game room's player 1 id and player 2 id are empty strings, remove the room.
     - [ ] set this user's room's "roomFull" key to false.
     - [ ] If both this user's game room's player 1 id and player 2 id are empty strings, remove the room.
     - [ ] remove this player's profile.
