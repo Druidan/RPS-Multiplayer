@@ -3,7 +3,8 @@
 /* Utility CSS */
 
     .buryIt{
-        display: none !important;
+        /* display: none !important; */
+        background-color: gray;
     }
 
 /* Structure CSS*/
@@ -127,6 +128,36 @@
         }
 
     /* Game-On Screen */
+
+        .ready-screen{
+            display: flex;
+            flex-direction: column;
+            flex-wrap: nowrap;
+            justify-content: space-around;
+        }
+
+            .readyTitle{
+                text-align: center;
+            }
+
+            .readyText{
+                text-align: center;
+            }
+
+            .readyForm{
+                display: flex;
+                flex-direction: row;
+                flex-wrap: wrap;
+                justify-content: space-around;
+                padding: 0 2%;
+            }
+
+            .startPlayBtn{
+
+            }
+
+
+    /* Game-On Screen */
     
         .gameRow{
 
@@ -167,9 +198,6 @@
 
             }
 
-            .startPlayBtn{
-
-            }
 
         .gameOn-screen{
 
