@@ -176,6 +176,7 @@ gameFunctions = {
         allUsers.child(playerKey).update({
             myId: playerKey,
         });
+        gameFunctions.firebaseListeners();
         if(thisPlayerNumber === 1){
             allGameRooms.child(myRoomKey).update({
                 player1Id: playerKey,
@@ -673,7 +674,7 @@ $(`.sayBtn`).click( function(event){//When the Player submits text to the chat.
 });
 
 //Call database Listeners
-gameFunctions.firebaseListeners();
+// gameFunctions.firebaseListeners();
 
 
 
