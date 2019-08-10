@@ -1,4 +1,5 @@
-/* This CSS file will hold all fundamental css.
+/* This CSS file will hold all fundamental css and aesthetic css 
+    that won't change with media queries.
     That means root adjustments, CSS variables, and further 
     normalization adjustments to core html elements. 
     Also, universal utility classes like 'buryIt' */
@@ -14,6 +15,10 @@
 body {
     background-color: var(--CanvasColor);
     color: var(--StandardTextColor);
+    box-sizing: border-box;
+    width: 100%;
+    height: 100%;
+    margin: 0;
 }
 
 h1, h2, h3, h4, h5, h6, ol, ul, li {
@@ -24,6 +29,36 @@ h1, h2, h3, h4, h5, h6, ol, ul, li {
 /* Utility CSS */
 
 .buryIt{
-    /* display: none !important; */
-    background-color: gray;
+    display: none !important;
+    /* background-color: gray; */
+}
+
+/* Navbar */
+
+.myName{
+    text-decoration: none;
+}
+
+.exitToPortfolio{
+    text-decoration: none;
+}
+
+.nav-link{
+    text-align: center;
+}
+
+.nav-link:link{
+    color: var(--StandardTextColor);
+}
+
+.nav-link:visited{
+    color: rgb(198, 227, 253);
+}
+
+.nav-link:hover{
+    color: rgb(4, 253, 253);
+}
+
+.nav-link:active{
+    color: rgb(91, 91, 248);
 }

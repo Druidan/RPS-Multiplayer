@@ -1,4 +1,115 @@
-/* This CSS file will hold all css related to page layout, 
-    and any changes made to it through media queries. */
+/* This CSS file will hold all css related to page layout through classes, 
+    and any changes made to them, or base elements, through media queries. */
 
-    
+    /* Navbar */
+
+    .navBar{
+        display: grid;
+        grid-template-columns: auto 1fr auto;
+        box-sizing: border-box;
+        width: 100%;
+        padding: 2vw 5vw;
+        grid-template-areas:  
+            'reload . portfolio';
+    }
+
+    .myName {
+        grid-area: reload;
+        font-size: 4vw;
+    }
+
+    .exitToPortfolio {
+        grid-area: portfolio;
+        font-size: 4vw;
+    }
+
+    /* Game Screen */
+
+    .main-screen{ }
+
+    /* Header */
+
+    .gameHead {
+        display: grid;
+        grid-template-columns: 1fr 2fr 1fr;
+        grid-gap: 10px;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+        grid-template-areas:  
+            'wins   billboard   losses';
+        box-sizing: border-box;
+        width: 100%;
+        padding-top: 3vw;
+    }
+
+    .winsDiv {
+        grid-area: wins;
+        display: grid;
+        grid-gap: 10px;
+        width: 100%;
+    }
+
+    .titleDiv {
+        grid-area: billboard;
+        display: grid;
+        grid-gap: 10px;
+        width: 100%;
+    }
+
+    .win-loss-div {
+        grid-area: billboard;
+        display: grid;
+        grid-gap: 10px;
+        width: 100%;
+    }
+
+    .lossesDiv {
+        grid-area: losses;
+        display: grid;
+        grid-gap: 10px;
+        width: 100%;
+    }
+
+    /* Intro Screen */
+
+    .intro-screen{
+        display: grid;
+        grid-template-columns: 1fr;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+        box-sizing: border-box;
+        width: 100%;
+        padding-top: 3vw;
+    }
+
+    .instructionTitle{
+    }
+
+    .instructionText{
+    }
+
+    .playForm{
+        display: grid;
+        grid-template-columns: 1fr 1fr auto 1fr;
+        grid-gap: 10px;
+        grid-template-areas:  
+        '.  nameInput   submit   .';
+        box-sizing: border-box;
+        width: 100%;
+        padding-top: 3vw;
+    }
+
+    .playerNameInput{
+        grid-area: nameInput;
+        display: grid;
+        justify-self: right;
+        text-align: left;
+    }
+
+    .pNameBtn{
+        grid-area: submit;
+        display: grid;
+        text-align: center;
+    }
