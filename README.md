@@ -24,6 +24,7 @@ The goal of this app is to demonstrate a static page using a real time database.
 
 ## Bugs to Fix
 * Sometimes a player will be awarded two wins for a single win.
+* I am currently still getting a type error where the app reads a room snapshot as null. I'm not sure when it is happeneing as it doesn't seem to interfere with the game mechanics.
 
 ## Future Features:
 * Choosing rock, paper, or scissors, will be on a timer. 

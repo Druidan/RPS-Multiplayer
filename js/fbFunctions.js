@@ -14,7 +14,9 @@ $(document).ready(function(){
     
             allGameRooms.on('value', function(snap) {
                 const roomsSnapshot = snap.child(`${myRoomKey}`).val();
+                console.log(roomsSnapshot)
                 const theChange = roomsSnapshot.whatChanged;
+                console.log(theChange)
     
                 switch(theChange){
                     case 'nothing':
@@ -58,7 +60,6 @@ $(document).ready(function(){
             makeRoom = allGameRooms.push({ //Create a push that sends all game state data for this game room to Firebase.
                 whatChanged: 'nothing',
                 gameRoomId: '',
-                // roomFull: false,
                 readyCheck: false,
                 gameOn: false,
                 endScreen: false,
