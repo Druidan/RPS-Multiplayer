@@ -1,0 +1,24 @@
+:root {
+    --CanvasColor: rgba(25, 25, 25, 1);
+    --StandardTextColor: whitesmoke;
+    --TitleFont: ;
+    --SubtitleFont: ;
+    --StandardFont: ;
+}
+
+body {
+    background-color: var(--CanvasColor);
+    color: var(--StandardTextColor);
+}
+
+h1, h2, h3, h4, h5, h6, ol, ul, li {
+    margin: 0;
+    padding: 0;
+}
+
+/* Utility CSS */
+
+.buryIt{
+    /* display: none !important; */
+    background-color: gray;
+}
