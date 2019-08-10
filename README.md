@@ -2,7 +2,7 @@
 An online two-player Rock Paper Scissors game.
 
 ## Overview and Goals
-This app will present a user with a simple login screen. Once logged in, the user will be paired with a random stranger who has also logged in, and then both players will be able to compete in as many games of rock, paper, scissors as they wish.
+This app will present a user with a simple login screen. Once logged in, the user will be paired with a random stranger who has also logged in, and then both players will be able to compete in as many games of rock, paper, scissors as they wish. This is meant to be an example of a static page using jQuery and Firebase in conjunction to create a dynamic multiplayer game.
 
 ## Deployment
 The game is currently deployed in an incomplete form on GitHub Pages [HERE](https://druidan.github.io/RPS-Multiplayer/).
@@ -22,6 +22,9 @@ The game is currently deployed in an incomplete form on GitHub Pages [HERE](http
 ## Dependancies
 The goal of this app is to demonstrate a static page using a real time database. To that end, this app will only have [Firebase](https://firebase.google.com/) as a dependancy through CDN. 
 
+## Bugs to Fix
+* Sometimes a player will be awarded two wins for a single win.
+
 ## Future Features:
 * Choosing rock, paper, or scissors, will be on a timer. 
 * RPS-Multiplayer 2 - A sequel built as a MERN app with more advanced features, like a true authentication system, persistent user data and records, and a React view engine. This is a seperate project from this one, and does not figure into the plan to refactor this project for its original specifications. 
@@ -30,8 +33,9 @@ The goal of this app is to demonstrate a static page using a real time database.
 This project is currently under active refactoring with the following goals:
 * Maintain the original goals of the project, that being a static page using a firebase real-time database to allow users to play a simple game of rock, paper, and scissors against one another with a chat window. 
 * Modularize and simplify the code.
+* Bring any vanilla js code up to ES6 standards.
 * Construct a working chat window.
-* Add appropriate CSS
+* Add appropriate CSS and convert to CSS Grid
 * Polish the game mechanics.
 * Make sure the transition from one game to the next is smooth and clear.
 * Add timers to the selection screen.
