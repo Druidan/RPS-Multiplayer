@@ -20,7 +20,8 @@ The game is currently deployed in an incomplete form on GitHub Pages [HERE](http
   * Both players must be able to communicate together through a simple chat window.
 
 ## Dependancies
-The goal of this app is to demonstrate a static page using a real time database. To that end, this app will only have [Firebase](https://firebase.google.com/) as a dependancy through CDN. 
+* The goal of this app is to demonstrate a static page using a real time database. To that end, this app will only have [Firebase](https://firebase.google.com/) as a dependancy through CDN. 
+* This project will also use jQuery.
 
 ## Bugs to Fix
 * Sometimes a player will be awarded two wins for a single win.
