@@ -90,7 +90,7 @@ $(`.pNameBtn`).click( function(event){ //When the player clicks the button to su
 
                             thisPlayerNumber = 1; //This player's number is going to be 1, since they are entering a player 1 spot.
 
-                            gameFunctions.createNewPlayer(); //We call the function that will create this player's data.
+                            fbFunctions.createNewPlayer(); //We call the function that will create this player's data.
 
                             playerAssigned = true; // Since the player has been assigned, we set this value to true.
 
@@ -102,7 +102,7 @@ $(`.pNameBtn`).click( function(event){ //When the player clicks the button to su
 
                                 thisPlayerNumber = 2; //This player's number is going to be 2, since they are entering a player 2 spot.
 
-                                gameFunctions.createNewPlayer(); //We call the function that will create this player's data.
+                                fbFunctions.createNewPlayer(); //We call the function that will create this player's data.
 
                                 playerAssigned = true; // Since the player has been assigned, we set this value to true.
                                 
@@ -133,11 +133,11 @@ $(`.pNameBtn`).click( function(event){ //When the player clicks the button to su
 
             if(newRoom) { //If we do need a new room...
 
-                gameFunctions.createGameRoom(); //...Call for the function that creates a new room.
+                fbFunctions.createGameRoom(); //...Call for the function that creates a new room.
 
                 thisPlayerNumber = 1; //Since this new room is being created for this player, the player's number is 1.
 
-                gameFunctions.createNewPlayer(); //Call the function that creates this player's data.
+                fbFunctions.createNewPlayer(); //Call the function that creates this player's data.
         } }
         // --------------------------------------------------------
 }) } });
