@@ -1,3 +1,8 @@
+/* This CSS file will hold all fundamental css.
+    That means root adjustments, CSS variables, and further 
+    normalization adjustments to core html elements. 
+    Also, universal utility classes like 'buryIt' */
+
 :root {
     --CanvasColor: rgba(25, 25, 25, 1);
     --StandardTextColor: whitesmoke;
