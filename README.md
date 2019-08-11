@@ -25,6 +25,7 @@ The game is currently deployed in an incomplete form on GitHub Pages [HERE](http
 
 ## Bugs to Fix
 * Sometimes a player will be awarded two wins for a single win.
+* The number of wins and losses does not change over to zero until after the first game is played. It should change as soon as the player joins the room.
 * I am currently still getting a type error where the app reads a room snapshot as null. I'm not sure when it is happeneing as it doesn't seem to interfere with the game mechanics.
 
 ## Future Features:
