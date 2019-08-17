@@ -5,12 +5,14 @@ $(document).ready(function(){
 // --------------------------------------------------------
 // --------------------------------------------------------
 
-$(`.pNameBtn`).click( function(event){ //When the player clicks the button to submit their display-name.
-    event.preventDefault();  // First, prevent the default actions of the submit button.
-    
-    let uniqueName = true; //By default we first assume that the player's submitted name will be unique.
-    
-    submittedName = $(`.playerNameInput`).val().trim(); //We grab the input of the player's name.
+//When the player clicks the button to submit their display-name.
+$(`.pNameBtn`).click( function(event){ 
+    // First, prevent the default actions of the submit button.
+    event.preventDefault();  
+    //By default we first assume that the player's submitted name will be unique.
+    let uniqueName = true; 
+    //We grab the input of the player's name.
+    submittedName = $(`.playerNameInput`).val().trim(); 
     // --------------------------------------------------------
 
     allUsers.once(`value`).then(function(snapshot){ //We check the All Players database reference to see if any other player already has that username.
@@ -147,28 +149,8 @@ $(`.pNameBtn`).click( function(event){ //When the player clicks the button to su
 
 $(`.startPlayBtn`).click( function(event){//When the Player hits the ready screen play button...
     event.preventDefault(); //...first, prevent the default actions of the submit button.
-
-    if(imReady === false && thisPlayerNumber === 1){ //If this button has not already been clicked, and this player is player 1 in the room... 
-
-        imReady = true;
-
-        allGameRooms.child(myRoomKey).update({ // ...we update the player 1 ready information... 
-
-            player1Ready: true, //...to show that this player is ready.
-
-            whatChanged: `playerReady`, //We also notify the room of the change that has just occured.
-        })
-
-    } else if(imReady === false && thisPlayerNumber === 2){ //If this button has not already been clicked, and this player is number 2... 
-
-        imReady = true;
-
-        allGameRooms.child(myRoomKey).update({ //...we update the player 2 ready information...
-
-            player2Ready: true, //...to show that this player is ready.
-
-            whatChanged: `playerReady`, //We also notify the room of the change that has just occured.
-}) } });
+    setReady()
+});
 
 // --------------------------------------------------------
 // --------------------------------------------------------
@@ -200,8 +182,8 @@ $(`.rpsSelection`).click( function(event){//When the player selects either Rock,
 
 $(`.playAgainBtn`).click( function(event){//When the player clicks the Play Again Button.
     event.preventDefault();
-
-
+    roundScored = false;
+    setReady();
 });
 
 // --------------------------------------------------------
@@ -212,5 +194,31 @@ $(`.sayBtn`).click( function(event){//When the Player submits text to the chat.
 
 });
 
+// --------------------------------------------------------
+// ------------SHARED ONCLICK FUNCTIONS BELOW--------------
+// --------------------------------------------------------
+
+function setReady() {
+    if(imReady === false && thisPlayerNumber === 1){ //If this button has not already been clicked, and this player is player 1 in the room... 
+
+        imReady = true;
+
+        allGameRooms.child(myRoomKey).update({ // ...we update the player 1 ready information... 
+
+            player1Ready: true, //...to show that this player is ready.
+
+            whatChanged: `playerReady`, //We also notify the room of the change that has just occured.
+        })
+
+    } else if(imReady === false && thisPlayerNumber === 2){ //If this button has not already been clicked, and this player is number 2... 
+
+        imReady = true;
+
+        allGameRooms.child(myRoomKey).update({ //...we update the player 2 ready information...
+
+            player2Ready: true, //...to show that this player is ready.
+
+            whatChanged: `playerReady`, //We also notify the room of the change that has just occured.
+}) } }
 
 });

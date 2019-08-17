@@ -1,26 +1,45 @@
 /* This CSS file will hold all css related to page layout through classes, 
-    and any changes made to them, or base elements, through media queries. */
+    and any changes made to them, or base elements, through media queries.
+    All code before media queries is stylized with a viewport width of 300px in mind. */
+
+:root {
+    --TitleSize: 5vw;
+    --IconSize: 7vw;
+    --SubSize: ;
+    --TextSize: ;
+}
 
 /* Navbar */
 
 .navBar{
     display: grid;
-    grid-template-columns: auto 1fr auto;
+    grid-gap: 15px;
+    grid-template-columns: 1fr 4fr 1fr;
     box-sizing: border-box;
     width: 100%;
     padding: 2vw 5vw;
+    align-items: center;
+    text-align: center;
     grid-template-areas:  
-        'reload . portfolio';
+        'reload title portfolio';
 }
 
 .myName {
     grid-area: reload;
-    font-size: 4vw;
+    font-size: var(--IconSize);
+}
+
+.titleDiv {
+    grid-area: title;
+    display: grid;
+    grid-gap: 10px;
+    width: 100%;
+    font-size: var(--TitleSize);
 }
 
 .exitToPortfolio {
     grid-area: portfolio;
-    font-size: 4vw;
+    font-size: var(--IconSize);
 }
 
 /* Game Screen */
@@ -50,14 +69,11 @@
     width: 100%;
 }
 
-.titleDiv {
+.gameSubTitle {
     grid-area: billboard;
     display: grid;
     grid-gap: 10px;
     width: 100%;
-}
-
-.gameSubTitle {
     margin: 0;
 }
 
