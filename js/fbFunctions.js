@@ -48,7 +48,13 @@ $(document).ready(function(){
         
                         case 'roundResult':
                             fbFunctions.resetWhatChanged();
-                            gameFunctions.displayResults();
+                            if(roundScored === false){
+                                roundScored = true;
+                                gameFunctions.displayResults();
+                            }
+                            break;
+
+                        default:
                             break;
                     }
                 }

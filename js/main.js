@@ -139,6 +139,8 @@ gameFunctions = {
                     allGameRooms.child(myRoomKey).update({ roundResult: '' });
                     gameFunctions.player2Wins();
                     break;
+                default:
+                    break;
             }
             if(!gameOnScreen.hasClass('buryIt')){
                 gameOnScreen.addClass('buryIt')

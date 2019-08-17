@@ -18,6 +18,7 @@
 // Game State
     let readyCheck = false;
     let gameOn = false;
+    let roundScored = false;
 
 //Player State
     let playerName;
