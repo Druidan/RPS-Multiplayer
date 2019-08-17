@@ -66,11 +66,6 @@ $(document).ready(function(){
             makeRoom = allGameRooms.push({ //Create a push that sends all game state data for this game room to Firebase.
                 whatChanged: 'nothing',
                 gameRoomId: '',
-                readyCheck: false,
-                gameOn: false,
-                endScreen: false,
-                playerReady: false,
-                opponentReady: false,
                 player1Id: '',
                 player1Ready: '',
                 player1Choice: '',

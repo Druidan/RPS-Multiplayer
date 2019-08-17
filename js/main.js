@@ -71,6 +71,9 @@ gameFunctions = {
             if(!readyScreen.hasClass('buryIt')){
                 readyScreen.addClass('buryIt')
             }
+            if(!endScreen.hasClass('buryIt')){
+                endScreen.addClass('buryIt')
+            }
             if(gameOnScreen.hasClass('buryIt')){
                 gameOnScreen.removeClass('buryIt')
                 if(thisPlayerNumber === 1){
@@ -150,6 +153,7 @@ gameFunctions = {
                 winLossDiv.removeClass('buryIt')
                 endScreen.removeClass('buryIt')
             }
+
         });
     },
     // --------------------------------------------------------
@@ -216,6 +220,18 @@ gameFunctions = {
             });
             myLosses.text(`${losses}`)
         }
+    },
+    // --------------------------------------------------------
+
+    resetGameState: function(){
+        allGameRooms.child(myRoomKey).update({ // ...we update the game room information... 
+            whatChanged: 'nothing', 
+            player1Ready: '',
+            player1Choice: '',
+            player2Ready: '',
+            player2Choice: '',
+            roundResult: '',
+        })
     },
     // --------------------------------------------------------
 };
