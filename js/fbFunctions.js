@@ -13,44 +13,44 @@ $(document).ready(function(){
             // -----------------------------------
     
             allGameRooms.on('value', function(snap) {
-                const roomsSnapshot = snap.child(`${myRoomKey}`).val();
-                console.log(roomsSnapshot)
-                const theChange = roomsSnapshot.whatChanged;
-                console.log(theChange)
-    
-                switch(theChange){
-                    case 'nothing':
-                        break;
-    
-                    case 'playerPresence':
-                        fbFunctions.resetWhatChanged();
-                        gameFunctions.checkPlayerPresence();
-                        break;
-    
-                    case 'playerReady':
-                        fbFunctions.resetWhatChanged();
-                        gameFunctions.checkPlayerReady();
-                        break;
-    
-                    case 'player1message':
-                        fbFunctions.resetWhatChanged();
-                        gameFunctions.handlePlayer1Message();
-                        break;
-    
-                    case 'player2message':
-                        fbFunctions.resetWhatChanged();
-                        gameFunctions.handlePlayer2Message();
-                        break;
-    
-                    case 'playerChoice':
-                        fbFunctions.resetWhatChanged();
-                        gameFunctions.checkPlayerChoice();
-                        break;
-    
-                    case 'roundResult':
-                        fbFunctions.resetWhatChanged();
-                        gameFunctions.displayResults();
-                        break;
+                if (myRoomKey){
+                    const roomsSnapshot = snap.child(`${myRoomKey}`).val();
+                    const theChange = roomsSnapshot.whatChanged;
+        
+                    switch(theChange){
+                        case 'nothing':
+                            break;
+        
+                        case 'playerPresence':
+                            fbFunctions.resetWhatChanged();
+                            gameFunctions.checkPlayerPresence();
+                            break;
+        
+                        case 'playerReady':
+                            fbFunctions.resetWhatChanged();
+                            gameFunctions.checkPlayerReady();
+                            break;
+        
+                        case 'player1message':
+                            fbFunctions.resetWhatChanged();
+                            gameFunctions.handlePlayer1Message();
+                            break;
+        
+                        case 'player2message':
+                            fbFunctions.resetWhatChanged();
+                            gameFunctions.handlePlayer2Message();
+                            break;
+        
+                        case 'playerChoice':
+                            fbFunctions.resetWhatChanged();
+                            gameFunctions.checkPlayerChoice();
+                            break;
+        
+                        case 'roundResult':
+                            fbFunctions.resetWhatChanged();
+                            gameFunctions.displayResults();
+                            break;
+                    }
                 }
             });
         },

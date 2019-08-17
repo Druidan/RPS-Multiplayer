@@ -1,3 +1,20 @@
+
+// HTML Variables
+    const titleDiv = $('.titleDiv');
+    const subTitle = $('.gameSubTitle')
+    const winLossDiv = $('.win-loss-div');
+    const anouncement = $('.win-loss-anouncement');
+    const introScreen = $('.intro-screen');
+    const readyScreen = $('.ready-screen');
+    const gameOnScreen = $('.gameOn-screen');
+    const rpsButtons = $('.rpsButtonRow');
+    const endScreen = $('.end-screen');
+    const myWins = $('.winsDisplay');
+    const myLosses = $('.lossesDisplay');
+    const chatRow = $('.chatRow');
+    const player1Name = $('.player1');
+    const player2Name = $('.player2');
+
 // Game State
     let readyCheck = false;
     let gameOn = false;

@@ -3,8 +3,8 @@
     All code before media queries is stylized with a viewport width of 300px in mind. */
 
 :root {
-    --TitleSize: 7vw;
-    --IconSize: 6vw;
+    --TitleSize: 5vw;
+    --IconSize: 7vw;
     --SubSize: ;
     --TextSize: ;
 }

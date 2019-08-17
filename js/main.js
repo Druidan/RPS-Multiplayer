@@ -7,21 +7,6 @@ const weapons = { //The idea to use an object to hold information on what beats 
     scissors: {beats: 'paper'},
 }
 
-// HTML Variables
-const titleDiv = $('.titleDiv');
-const winLossDiv = $('.win-loss-div');
-const anouncement = $('.win-loss-anouncement');
-const introScreen = $('.intro-screen');
-const readyScreen = $('.ready-screen');
-const gameOnScreen = $('.gameOn-screen');
-const rpsButtons = $('.rpsButtonRow');
-const endScreen = $('.end-screen');
-const myWins = $('.winsDisplay');
-const myLosses = $('.lossesDisplay');
-const chatRow = $('.chatRow');
-const player1Name = $('.player1');
-const player2Name = $('.player2');
-
 // intervalId = 0;
 
 //Game Functions
@@ -143,18 +128,21 @@ gameFunctions = {
             const winner = roomsSnapshot.roundResult;
             switch(winner) {
                 case 'tie':
+                    allGameRooms.child(myRoomKey).update({ roundResult: '' });
                     gameFunctions.itsATie();
                     break;
                 case 'p1Wins':
+                    allGameRooms.child(myRoomKey).update({ roundResult: '' });
                     gameFunctions.player1Wins();
                     break;
                 case 'p2Wins':
+                    allGameRooms.child(myRoomKey).update({ roundResult: '' });
                     gameFunctions.player2Wins();
                     break;
             }
             if(!gameOnScreen.hasClass('buryIt')){
                 gameOnScreen.addClass('buryIt')
-                titleDiv.addClass('buryIt')
+                subTitle.addClass('buryIt')
             }
             if(winLossDiv.hasClass('buryIt')){
                 winLossDiv.removeClass('buryIt')
@@ -187,27 +175,29 @@ gameFunctions = {
     },
     // --------------------------------------------------------
 
-    // Handle the win or loss announcement for player 1.
+    // Handle a player 1 win.
     player1Wins: function(){
         if(thisPlayerNumber === 1){
             anouncement.text(`You Win!`)
             ++wins
+            console.log(wins)
+            myWins.text(`${wins}`)
             allUsers.child(playerKey).update({
                 wins: wins,
             });
-            myWins.text(`${wins}`)
         } else if (thisPlayerNumber === 2){
             anouncement.text(`${opponentName} Wins!`)
             losses++
+            console.log(losses)
+            myLosses.text(`${losses}`)
             allUsers.child(playerKey).update({
                 losses: losses,
             });
-            myLosses.text(`${losses}`)
         }
     },
     // --------------------------------------------------------
     
-    // Handle the win or loss announcement for player 2.
+    // Handle a player 2 win.
     player2Wins: function(){
         if(thisPlayerNumber === 2){
             anouncement.text(`You Win!`)
