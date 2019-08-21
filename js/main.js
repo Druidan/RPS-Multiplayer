@@ -85,6 +85,9 @@ gameFunctions = {
                     player2Name.text(`${playerName}`).addClass('protag');
                     player1Name.text(`${opponentName}`).addClass('antag');
                 }
+                subTitle.addClass('buryIt')
+                winLossDiv.removeClass('buryIt')
+                anouncement.text(`Round ${roundNum}!`);
             }
             if(rpsButtons.hasClass('buryIt')){
                 rpsButtons.removeClass('buryIt');
@@ -130,17 +133,25 @@ gameFunctions = {
         allGameRooms.once('value', function(snap) {
             const roomsSnapshot = snap.child(`${myRoomKey}`).val();
             const winner = roomsSnapshot.roundResult;
+            const resetReady = {roundResult: ''};
+            if (thisPlayerNumber === 1){
+                Object.assign(resetReady, {player1Ready: ''});
+            } else if (thisPlayerNumber === 2) {
+                Object.assign(resetReady, {player2Ready: ''});
+            }
+            readyCheck = false;
+            imReady = false;
             switch(winner) {
                 case 'tie':
-                    allGameRooms.child(myRoomKey).update({ roundResult: '' });
+                    allGameRooms.child(myRoomKey).update(resetReady);
                     gameFunctions.itsATie();
                     break;
                 case 'p1Wins':
-                    allGameRooms.child(myRoomKey).update({ roundResult: '' });
+                    allGameRooms.child(myRoomKey).update(resetReady);
                     gameFunctions.player1Wins();
                     break;
                 case 'p2Wins':
-                    allGameRooms.child(myRoomKey).update({ roundResult: '' });
+                    allGameRooms.child(myRoomKey).update(resetReady);
                     gameFunctions.player2Wins();
                     break;
                 default:
@@ -148,10 +159,8 @@ gameFunctions = {
             }
             if(!gameOnScreen.hasClass('buryIt')){
                 gameOnScreen.addClass('buryIt')
-                subTitle.addClass('buryIt')
             }
-            if(winLossDiv.hasClass('buryIt')){
-                winLossDiv.removeClass('buryIt')
+            if(endScreen.hasClass('buryIt')){
                 endScreen.removeClass('buryIt')
             }
 
@@ -225,18 +234,18 @@ gameFunctions = {
     // --------------------------------------------------------
 
     resetGameState: function(){
-        allGameRooms.child(myRoomKey).update({ // ...we update the game room information... 
+        resetState = { // ...we update the game room information... 
             whatChanged: 'nothing', 
-            player1Ready: '',
             player1Choice: '',
-            player2Ready: '',
             player2Choice: '',
             roundResult: '',
-        });
-        readyCheck = false;
+        }
+        allGameRooms.child(myRoomKey).update(resetState);
         gameOn = false;
         roundScored = false;
-        imReady = false;
+        roundNum++
+        console.log(roundNum);
+        anouncement.text(`Round ${roundNum}!`);
     },
     // --------------------------------------------------------
 };

@@ -16,10 +16,12 @@
     const chatRow = $('.chatRow');
     const player1Name = $('.player1');
     const player2Name = $('.player2');
+    const playAgain = $('.playAgainStatus');
 
 // Game State
     let readyCheck = false;
     let gameOn = false;
+    let roundNum = 1;
     let roundScored = false;
 
 //Player State

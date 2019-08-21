@@ -180,9 +180,12 @@ $(`.rpsSelection`).click( function(event){//When the player selects either Rock,
 // --------------------------------------------------------
 // --------------------------------------------------------
 
-$(`.playAgainBtn`).click( function(event){//When the player clicks the Play Again Button.
+$('.playAgainBtn').click( function(event){//When the player clicks the Play Again Button.
     event.preventDefault();
-    gameFunctions.resetGameState();
+    if (imReady === false){
+        playAgain.text(`Here We Go, ${playerName}!`)
+        gameFunctions.resetGameState();
+    }
     setReady();
 });
 
