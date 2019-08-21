@@ -24,7 +24,8 @@ gameFunctions = {
             if(p1Id !== '' && p2Id !== ''){
                 fbFunctions.grabOpponentName();
             } else{
-                $('.instructionText').text('Waiting For an Opponent.'); 
+                instructTitle.text(`Welcome, ${playerName}!`)
+                instructText.text('Waiting For an Opponent.'); 
     } }); },
     // --------------------------------------------------------
 
@@ -69,24 +70,24 @@ gameFunctions = {
         if(!gameOn){
             gameOn = true;
             if(!readyScreen.hasClass('buryIt')){
-                readyScreen.addClass('buryIt')
+                readyScreen.addClass('buryIt');
             }
             if(!endScreen.hasClass('buryIt')){
-                endScreen.addClass('buryIt')
+                endScreen.addClass('buryIt');
             }
             if(gameOnScreen.hasClass('buryIt')){
                 gameOnScreen.removeClass('buryIt')
-                if(thisPlayerNumber === 1){
-                    player1Name.text(`${playerName}`)
-                    player2Name.text(`${opponentName}`)
+                if(thisPlayerNumber === 1 && !player1Name.hasClass('protag')){
+                    player1Name.text(`${playerName}`).addClass('protag');
+                    player2Name.text(`${opponentName}`).addClass('antag');
                 }
-                if(thisPlayerNumber === 2){
-                    player2Name.text(`${playerName}`)
-                    player1Name.text(`${opponentName}`)
+                if(thisPlayerNumber === 2 && !player2Name.hasClass('protag')){
+                    player2Name.text(`${playerName}`).addClass('protag');
+                    player1Name.text(`${opponentName}`).addClass('antag');
                 }
             }
             if(rpsButtons.hasClass('buryIt')){
-                rpsButtons.removeClass('buryIt')
+                rpsButtons.removeClass('buryIt');
             }
     } },
     // --------------------------------------------------------
@@ -231,7 +232,11 @@ gameFunctions = {
             player2Ready: '',
             player2Choice: '',
             roundResult: '',
-        })
+        });
+        readyCheck = false;
+        gameOn = false;
+        roundScored = false;
+        imReady = false;
     },
     // --------------------------------------------------------
 };

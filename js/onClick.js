@@ -182,7 +182,7 @@ $(`.rpsSelection`).click( function(event){//When the player selects either Rock,
 
 $(`.playAgainBtn`).click( function(event){//When the player clicks the Play Again Button.
     event.preventDefault();
-    roundScored = false;
+    gameFunctions.resetGameState();
     setReady();
 });
 
@@ -200,24 +200,15 @@ $(`.sayBtn`).click( function(event){//When the Player submits text to the chat.
 
 function setReady() {
     if(imReady === false && thisPlayerNumber === 1){ //If this button has not already been clicked, and this player is player 1 in the room... 
-
         imReady = true;
-
         allGameRooms.child(myRoomKey).update({ // ...we update the player 1 ready information... 
-
             player1Ready: true, //...to show that this player is ready.
-
             whatChanged: `playerReady`, //We also notify the room of the change that has just occured.
         })
-
     } else if(imReady === false && thisPlayerNumber === 2){ //If this button has not already been clicked, and this player is number 2... 
-
         imReady = true;
-
         allGameRooms.child(myRoomKey).update({ //...we update the player 2 ready information...
-
             player2Ready: true, //...to show that this player is ready.
-
             whatChanged: `playerReady`, //We also notify the room of the change that has just occured.
 }) } }
 

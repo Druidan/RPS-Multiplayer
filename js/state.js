@@ -4,6 +4,8 @@
     const subTitle = $('.gameSubTitle')
     const winLossDiv = $('.win-loss-div');
     const anouncement = $('.win-loss-anouncement');
+    const instructTitle = $('.instructionTitle');
+    const instructText = $('.instructionText');
     const introScreen = $('.intro-screen');
     const readyScreen = $('.ready-screen');
     const gameOnScreen = $('.gameOn-screen');
