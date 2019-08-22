@@ -24,8 +24,7 @@ The game is currently deployed in an incomplete form on GitHub Pages [HERE](http
 * This project will also use jQuery.
 
 ## Bugs to Fix
-* Round numbers do not always match wins and losses. Requires testing. When I noticed the bug it was only after there was a large difference, and after a player had left the lobby, which might have affected it. 
-* Not strictly a bug, but during round change-over, both players need to stay on the same screen at all times, and currently one can go to the game screen without the opponent also going to said screen. 
+_No known bugs currently! Huzzah! Please let me know if you run across any!_
 
 ## Future Features:
 * Choosing rock, paper, or scissors, will be on a timer. 
