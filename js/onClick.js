@@ -159,15 +159,27 @@ $('.playAgainBtn').click( function(event){
 // ***************** Submit Chat Button *******************
 // --------------------------------------------------------
 // When the Player submits text to the chat, send it through the validation function. 
-// If it passes the validation criteria, post the chat to the chat log.
+// If it passes the validation criteria, update the room data with the message.
 $(`.sayBtn`).click( function(event){
     event.preventDefault();
     const myMessage = $(`.chatBox`).val().trim();
     if (validateChat(myMessage) && thisPlayerNumber === 1) {
+        allGameRooms.child(myRoomKey).update({ 
+            player1Message: myMessage, 
+            whatChanged: `player1message`, 
+        })
         gameFunctions.handlePlayer1Message(myMessage);
+        chatBox.empty();
     } else if (validateChat(myMessage) && thisPlayerNumber === 2) {
+        allGameRooms.child(myRoomKey).update({  
+            player2Message: myMessage, 
+            whatChanged: `player2message`, 
+        })
         gameFunctions.handlePlayer2Message(myMessage);
+        chatBox.empty();
     } else {
+        // If the message doesn't pass validation, change the chat box text with a 
+        // player notification. 
         chatBox.text(chatNotification);
     }
 

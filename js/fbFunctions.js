@@ -32,13 +32,16 @@ $(document).ready(function(){
                             break;
         
                         case 'player1message':
-                            fbFunctions.resetWhatChanged();
-                            gameFunctions.handlePlayer1Message();
+                            if (thisPlayerNumber !== 1){
+                                fbFunctions.resetWhatChanged();
+                                gameFunctions.handlePlayer1Message(roomsSnapshot.player1Message);
+                            }
                             break;
-        
                         case 'player2message':
-                            fbFunctions.resetWhatChanged();
-                            gameFunctions.handlePlayer2Message();
+                            if (thisPlayerNumber !== 2){
+                                fbFunctions.resetWhatChanged();
+                                gameFunctions.handlePlayer2Message(roomsSnapshot.player2Message);
+                            }
                             break;
         
                         case 'playerChoice':
@@ -69,9 +72,11 @@ $(document).ready(function(){
                 player1Id: '',
                 player1Ready: '',
                 player1Choice: '',
+                player1Message: '',
                 player2Id: '',
                 player2Ready: '',
                 player2Choice: '',
+                player2Message: '',
                 roundResult: '',
                 // clockRunning: false,
             })
