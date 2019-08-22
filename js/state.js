@@ -8,6 +8,7 @@
     const instructText = $('.instructionText');
     const introScreen = $('.intro-screen');
     const readyScreen = $('.ready-screen');
+    const readyTitle = $('.readyTitle');
     const gameOnScreen = $('.gameOn-screen');
     const rpsButtons = $('.rpsButtonRow');
     const endScreen = $('.end-screen');

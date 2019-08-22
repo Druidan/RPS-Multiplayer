@@ -38,10 +38,11 @@ gameFunctions = {
                 introScreen.addClass('buryIt');
             }
             if(readyScreen.hasClass('buryIt')){
-                readyScreen.removeClass('buryIt')
+                readyScreen.removeClass('buryIt');
+                readyTitle.text(`Are You Ready, ${playerName}?`);
             }
             if(chatRow.hasClass('buryIt')){
-                chatRow.removeClass('buryIt')
+                chatRow.removeClass('buryIt');
             }
     } },
     // --------------------------------------------------------
