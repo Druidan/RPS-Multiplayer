@@ -24,9 +24,8 @@ The game is currently deployed in an incomplete form on GitHub Pages [HERE](http
 * This project will also use jQuery.
 
 ## Bugs to Fix
-* Sometimes a player will be awarded two wins for a single win.
-* The number of wins and losses does not change over to zero until after the first game is played. It should change as soon as the player joins the room.
-* I am currently still getting a type error where the app reads a room snapshot as null. I'm not sure when it is happeneing as it doesn't seem to interfere with the game mechanics.
+* Round numbers do not always match wins and losses. Requires testing. When I noticed the bug it was only after there was a large difference, and after a player had left the lobby, which might have affected it. 
+* Not strictly a bug, but during round change-over, both players need to stay on the same screen at all times, and currently one can go to the game screen without the opponent also going to said screen. 
 
 ## Future Features:
 * Choosing rock, paper, or scissors, will be on a timer. 
