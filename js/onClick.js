@@ -169,14 +169,14 @@ $(`.sayBtn`).click( function(event){
             whatChanged: `player1message`, 
         })
         gameFunctions.handlePlayer1Message(myMessage);
-        chatBox.empty();
+        chatBox.val('');
     } else if (validateChat(myMessage) && thisPlayerNumber === 2) {
         allGameRooms.child(myRoomKey).update({  
             player2Message: myMessage, 
             whatChanged: `player2message`, 
         })
         gameFunctions.handlePlayer2Message(myMessage);
-        chatBox.empty();
+        chatBox.val('');
     } else {
         // If the message doesn't pass validation, change the chat box text with a 
         // player notification. 
