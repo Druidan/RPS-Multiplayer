@@ -196,6 +196,7 @@ gameFunctions = {
     player1Wins: function(){
         if(thisPlayerNumber === 1){
             anouncement.text(`You Win!`)
+            endTitle.text(`Congratulations, ${playerName}!`)
             ++wins
             console.log(wins)
             myWins.text(`${wins}`)
@@ -204,6 +205,7 @@ gameFunctions = {
             });
         } else if (thisPlayerNumber === 2){
             anouncement.text(`${opponentName} Wins!`)
+            endTitle.text(`Better luck next time, ${playerName}!`)
             losses++
             console.log(losses)
             myLosses.text(`${losses}`)
@@ -218,6 +220,7 @@ gameFunctions = {
     player2Wins: function(){
         if(thisPlayerNumber === 2){
             anouncement.text(`You Win!`)
+            endTitle.text(`Congratulations, ${playerName}!`)
             ++wins
             allUsers.child(playerKey).update({
                 wins: wins,
@@ -225,6 +228,7 @@ gameFunctions = {
             myWins.text(`${wins}`)
         } else if (thisPlayerNumber === 1){
             anouncement.text(`${opponentName} Wins!`)
+            endTitle.text(`Better luck next time, ${playerName}!`)
             losses++
             allUsers.child(playerKey).update({
                 losses: losses,

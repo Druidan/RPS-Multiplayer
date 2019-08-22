@@ -12,6 +12,7 @@
     const gameOnScreen = $('.gameOn-screen');
     const rpsButtons = $('.rpsButtonRow');
     const endScreen = $('.end-screen');
+    const endTitle = $('.endTitle');
     const myWins = $('.winsDisplay');
     const myLosses = $('.lossesDisplay');
     const chatRow = $('.chatRow');
