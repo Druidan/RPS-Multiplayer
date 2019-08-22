@@ -16,6 +16,8 @@
     const myWins = $('.winsDisplay');
     const myLosses = $('.lossesDisplay');
     const chatRow = $('.chatRow');
+    const chatBox = $('.chatBox');
+    const chatLog = $('.chatLog');
     const player1Name = $('.player1');
     const player2Name = $('.player2');
     const playAgain = $('.playAgainStatus');
@@ -26,7 +28,7 @@
     let roundNum = 1;
     let roundScored = false;
 
-//Player State
+// Player State
     let playerName;
     let thisPlayerNumber;
     let thisPlayerChoice;
@@ -34,6 +36,9 @@
     let losses = 0;
     let opponentName;
     let imReady = false;
+
+// Chat Message
+    let chatNotification = '';
 
 //Player Firebase State
     // Player References

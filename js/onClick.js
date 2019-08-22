@@ -145,7 +145,8 @@ $(`.rpsSelection`).click( function(event){
 // --------------------------------------------------------
 // ****************** Play Again Button *******************
 // --------------------------------------------------------
-$('.playAgainBtn').click( function(event){//When the player clicks the Play Again Button.
+// When the player clicks the Play Again Button, .
+$('.playAgainBtn').click( function(event){
     event.preventDefault();
     if (imReady === false){
         playAgain.text(`Here We Go, ${playerName}!`)
@@ -157,15 +158,26 @@ $('.playAgainBtn').click( function(event){//When the player clicks the Play Agai
 // --------------------------------------------------------
 // ***************** Submit Chat Button *******************
 // --------------------------------------------------------
-$(`.sayBtn`).click( function(event){//When the Player submits text to the chat.
+// When the Player submits text to the chat, send it through the validation function. 
+// If it passes the validation criteria, post the chat to the chat log.
+$(`.sayBtn`).click( function(event){
     event.preventDefault();
+    const myMessage = $(`.chatBox`).val().trim();
+    if (validateChat(myMessage) && thisPlayerNumber === 1) {
+        gameFunctions.handlePlayer1Message(myMessage);
+    } else if (validateChat(myMessage) && thisPlayerNumber === 2) {
+        gameFunctions.handlePlayer2Message(myMessage);
+    } else {
+        chatBox.text(chatNotification);
+    }
 
 }); // --------------------------------------------------------
 
 // --------------------------------------------------------
-// *********** SHARED ONCLICK FUNCTIONS BELOW *************
+// *************** ONCLICK FUNCTIONS BELOW ****************
 // --------------------------------------------------------
 
+// 
 function setReady() {
     if(imReady === false && thisPlayerNumber === 1){ //If this button has not already been clicked, and this player is player 1 in the room... 
         imReady = true;
@@ -179,5 +191,27 @@ function setReady() {
             player2Ready: true, //...to show that this player is ready.
             whatChanged: `playerReady`, //We also notify the room of the change that has just occured.
 }) } }; // --------------------------------------------------------
+
+//Check the submitted name to make sure it fits the following conditions, and if 
+// it does not, send notifications to the player how to adjust their next submission.
+function validateName(name) {
+    validName = false;
+    if (name !== '' && name !== null && name !== undefined) {
+        validName = true;
+    } else { nameNotification = "It looks like you didn't type anything. Please write a message before hitting 'Say!'"; }
+    
+    return validName;
+};
+
+//Check the submitted message to make sure it fits the following conditions, and if 
+// it does not, send notifications to the player how to adjust their next submission.
+function validateChat(chat) {
+    validChat = false;
+    if (chat !== '' && chat !== null && chat !== undefined) {
+        validChat = true;
+    } else { chatNotification = "It looks like you didn't type anything. Please write a message before hitting 'Say!'"; }
+    
+    return validChat;
+};
 
 });

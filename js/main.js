@@ -177,7 +177,7 @@ gameFunctions = {
     // --------------------------------------------------------
 
     // When the firebase database is updated with a message from player 1...
-    handlePlayer1Message: function(){
+    handlePlayer1Message: function(message){
         allGameRooms.once('value', function(snap) {
             const roomsSnapshot = snap.child(`${myRoomKey}`).val();
 
@@ -186,7 +186,7 @@ gameFunctions = {
     // --------------------------------------------------------
 
     // When the firebase database is updated with a message from player 2...
-    handlePlayer2Message: function(){
+    handlePlayer2Message: function(message){
         allGameRooms.once('value', function(snap) {
             const roomsSnapshot = snap.child(`${myRoomKey}`).val();
         });
