@@ -78,6 +78,7 @@ gameFunctions = {
             }
             if(gameOnScreen.hasClass('buryIt')){
                 gameOnScreen.removeClass('buryIt')
+                anouncement.text(`Round ${roundNum}!`);
                 if(thisPlayerNumber === 1 && !player1Name.hasClass('protag')){
                     player1Name.text(`${playerName}`).addClass('protag');
                     player2Name.text(`${opponentName}`).addClass('antag');
@@ -249,8 +250,8 @@ gameFunctions = {
         gameOn = false;
         roundScored = false;
         roundNum++
-        console.log(roundNum);
-        anouncement.text(`Round ${roundNum}!`);
+        anouncement.text(`Prepare yourself for round ${roundNum}!`);
+        endTitle.text('');
     },
     // --------------------------------------------------------
 };
