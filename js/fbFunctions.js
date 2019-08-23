@@ -56,6 +56,10 @@ $(document).ready(function(){
                                 gameFunctions.displayResults();
                             }
                             break;
+                        
+                        case 'bothPlayersUpdated':
+                            fbFunctions.resetWhatChanged();
+                            break;
 
                         default:
                             break;
